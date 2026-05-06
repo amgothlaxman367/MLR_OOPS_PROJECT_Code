@@ -17,10 +17,30 @@
             text-align: center;
             padding: 25px;
             color: white;
+            animation: fadeDown 1.5s ease;
         }
 
+        /* LOGO */
         .logo {
             width: 120px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeDown {
+            from {opacity: 0; transform: translateY(-30px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+
+        @keyframes fadeUp {
+            from {opacity: 0; transform: translateY(40px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
         }
 
         /* CONTAINER */
@@ -28,6 +48,7 @@
             display: flex;
             padding: 30px;
             gap: 20px;
+            animation: fadeUp 1.5s ease;
         }
 
         /* CARD */
@@ -36,64 +57,47 @@
             border-radius: 15px;
             padding: 20px;
             box-shadow: 0px 5px 20px rgba(0,0,0,0.3);
+            transition: 0.4s;
         }
 
+        .card:hover {
+            transform: scale(1.03);
+        }
+
+        /* LEFT */
         .left {
             width: 30%;
             text-align: center;
         }
 
+        .left h2 {
+            color: #1d2b64;
+        }
+
+        /* RIGHT */
         .right {
             width: 70%;
-        }
-
-        /* 🔥 PROFILE IMAGE (HEAD TO CHEST FIX) */
-        .profile-container {
-            width: 180px;
-            height: 220px;
-            margin: auto;
-            overflow: hidden;
-            border-radius: 20px;
-            border: 4px solid #4facfe;
-            box-shadow: 0px 5px 20px rgba(0,0,0,0.3);
-        }
-
-        .profile {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: top; /* 🔥 shows head properly */
         }
 
         /* INPUT GRID */
         .form-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
+            gap: 10px;
         }
 
-        /* 🔥 COLORED INPUT BOXES */
         input {
             padding: 10px;
-            border-radius: 10px;
-            border: none;
-            font-weight: bold;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            transition: 0.3s;
         }
 
-        input:nth-child(1) { background: #ffdde1; }
-        input:nth-child(2) { background: #c2ffd8; }
-        input:nth-child(3) { background: #cfd9ff; }
-        input:nth-child(4) { background: #ffe0b2; }
-        input:nth-child(5) { background: #d1c4e9; }
-        input:nth-child(6) { background: #b2ebf2; }
-        input:nth-child(7) { background: #f8bbd0; }
-        input:nth-child(8) { background: #dcedc8; }
-        input:nth-child(9) { background: #fff9c4; }
-        input:nth-child(10){ background: #ffccbc; }
-        input:nth-child(11){ background: #b3e5fc; }
-        input:nth-child(12){ background: #e1bee7; }
-        input:nth-child(13){ background: #c8e6c9; }
-        input:nth-child(14){ background: #ffcdd2; }
+        input:focus {
+            border-color: #00f2fe;
+            box-shadow: 0px 0px 10px #00f2fe;
+            outline: none;
+        }
 
         /* BUTTON */
         .btn {
@@ -104,8 +108,14 @@
             margin-top: 15px;
             width: 100%;
             border-radius: 10px;
-            cursor: pointer;
             font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0px 5px 20px rgba(0,0,0,0.4);
         }
 
         /* PREDICTION */
@@ -117,6 +127,7 @@
             border-radius: 8px;
             font-size: 20px;
             color: green;
+            animation: fadeUp 1s ease;
         }
 
     </style>
@@ -131,25 +142,19 @@
         <p>✨ House Price Prediction using Machine Learning</p>
     </div>
 
+    <!-- MAIN -->
     <div class="container">
 
-        <!-- LEFT -->
+        <!-- LEFT SIDE -->
         <div class="card left">
-
-            <!-- 🔥 PROFILE IMAGE FIXED -->
-            <div class="profile-container">
-                <img src="{{ url_for('static', filename='suripaka pic.jpeg') }}" class="profile">
-            </div>
-
-            <h2>👩‍💻 Suripaka Ramadevi</h2>
+            <h2>👩‍💻 Suripaka Esha</h2>
             <p><b>Data Analyst & ML Engineer</b></p>
             <p>Email: ramadevisuripaka6@gmail.com</p>
-
+            <p>This project predicts house prices using ML.</p>
         </div>
 
-        <!-- RIGHT -->
+        <!-- RIGHT SIDE -->
         <div class="card right">
-
             <h2>🏠 Enter House Details</h2>
 
             <form action="/predict" method="post">
@@ -171,7 +176,7 @@
                     <input type="text" name="country" placeholder="Country (0)">
                 </div>
 
-                <button class="btn">🚀 Predict Price</button>
+                <button class="btn" type="submit">🚀 Predict Price</button>
 
             </form>
 
