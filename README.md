@@ -1,7 +1,4 @@
-Nice project structure Lucky 👍 — OOP + MLR is perfect for GitHub.
-I’ll give you a **clean, professional README.md content** that you can directly paste.
 
----
 
 # 📄 README.md (Use this)
 
