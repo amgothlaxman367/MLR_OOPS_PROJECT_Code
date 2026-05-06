@@ -1,121 +1,205 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>House Price Prediction</title>
 
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+```
+<style>
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', sans-serif;
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+        /* 🔥 Animated Background */
+        background: linear-gradient(270deg, #1e3c72, #2a5298, #4facfe);
+        background-size: 600% 600%;
+        animation: gradientMove 10s ease infinite;
+    }
 
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+    @keyframes gradientMove {
+        0% {background-position: 0% 50%;}
+        50% {background-position: 100% 50%;}
+        100% {background-position: 0% 50%;}
+    }
 
-        .card {
-            width: 420px;
-            max-height: 90vh;
-            overflow-y: auto;
-            border-radius: 20px;
-            background: rgba(255,255,255,0.15);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-            padding: 25px;
-            color: white;
-        }
+    /* HEADER */
+    .header {
+        text-align: center;
+        padding: 25px;
+        color: white;
+    }
 
-        h2 {
-            text-align: center;
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
+    .logo {
+        width: 120px;
+    }
 
-        .form-control {
-            margin-bottom: 12px;
-            border-radius: 10px;
-            padding: 10px;
-        }
+    /* CONTAINER */
+    .container {
+        display: flex;
+        padding: 30px;
+        gap: 20px;
+    }
 
-        .btn-custom {
-            width: 100%;
-            background: #00c853;
-            border: none;
-            padding: 10px;
-            border-radius: 10px;
-            font-weight: bold;
-        }
+    /* CARD */
+    .card {
+        background: rgba(255,255,255,0.95);
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0px 5px 20px rgba(0,0,0,0.3);
+    }
 
-        .btn-custom:hover {
-            background: #00a844;
-        }
+    .left {
+        width: 30%;
+        text-align: center;
+    }
 
-        .result {
-            margin-top: 15px;
-            text-align: center;
-            font-size: 18px;
-            color: yellow;
-        }
+    .right {
+        width: 70%;
+    }
 
-        p {
-            text-align: center;
-            margin-top: 15px;
-        }
-    </style>
+    /* PROFILE IMAGE */
+    .profile-container {
+        width: 200px;
+        height: 260px;
+        margin: auto;
+        overflow: hidden;
+        border-radius: 20px;
+        border: 4px solid #4facfe;
+        box-shadow: 0px 5px 20px rgba(0,0,0,0.3);
+    }
+
+    .profile {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center 20%;
+    }
+
+    /* INPUT GRID */
+    .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    /* INPUT STYLE */
+    input {
+        padding: 10px;
+        border-radius: 10px;
+        border: none;
+        font-weight: bold;
+    }
+
+    input:nth-child(1) { background: #ffdde1; }
+    input:nth-child(2) { background: #c2ffd8; }
+    input:nth-child(3) { background: #cfd9ff; }
+    input:nth-child(4) { background: #ffe0b2; }
+    input:nth-child(5) { background: #d1c4e9; }
+    input:nth-child(6) { background: #b2ebf2; }
+    input:nth-child(7) { background: #f8bbd0; }
+    input:nth-child(8) { background: #dcedc8; }
+    input:nth-child(9) { background: #fff9c4; }
+    input:nth-child(10){ background: #ffccbc; }
+    input:nth-child(11){ background: #b3e5fc; }
+    input:nth-child(12){ background: #e1bee7; }
+    input:nth-child(13){ background: #c8e6c9; }
+    input:nth-child(14){ background: #ffcdd2; }
+
+    /* BUTTON */
+    .btn {
+        background: linear-gradient(90deg, #00f2fe, #4facfe);
+        color: white;
+        border: none;
+        padding: 12px;
+        margin-top: 15px;
+        width: 100%;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: 0.3s;
+    }
+
+    .btn:hover {
+        transform: scale(1.05);
+    }
+
+    /* PREDICTION */
+    .prediction {
+        margin-top: 20px;
+        padding: 15px;
+        background: #e6fff2;
+        border-left: 5px solid green;
+        border-radius: 8px;
+        font-size: 20px;
+        color: green;
+    }
+
+</style>
+```
+
 </head>
 
 <body>
 
-<div class="card">
+```
+<!-- HEADER -->
+<div class="header">
+    <img src="{{ url_for('static', filename='vihara logo.jpeg') }}" class="logo">
+    <h1>🏢 Viharatech Private Limited</h1>
+    <p>✨ House Price Prediction using Machine Learning</p>
+</div>
 
-    <h2>House Price Prediction</h2>
+<div class="container">
 
-    <form action="/predict" method="POST">
+    <!-- LEFT -->
+    <div class="card left">
+        <div class="profile-container">
+            <img src="{{ url_for('static', filename='photo for Lucky size .jpg') }}" class="profile">
+        </div>
 
-        <input type="text" name="bedrooms" class="form-control" placeholder="Bedrooms">
-        <input type="text" name="bathrooms" class="form-control" placeholder="Bathrooms">
-
-        <input type="text" name="sqft_living" class="form-control" placeholder="Sqft Living">
-        <input type="text" name="sqft_lot" class="form-control" placeholder="Sqft Lot">
-
-        <input type="text" name="floors" class="form-control" placeholder="Floors">
-        <input type="text" name="waterfront" class="form-control" placeholder="Waterfront (0/1)">
-
-        <input type="text" name="view" class="form-control" placeholder="View">
-        <input type="text" name="condition" class="form-control" placeholder="Condition">
-
-        <input type="text" name="sqft_above" class="form-control" placeholder="Sqft Above">
-        <input type="text" name="sqft_basement" class="form-control" placeholder="Sqft Basement">
-
-        <input type="text" name="yr_built" class="form-control" placeholder="Year Built">
-        <input type="text" name="yr_renovated" class="form-control" placeholder="Year Renovated">
-
-        <input type="text" name="city" class="form-control" placeholder="City">
-        <input type="text" name="country" class="form-control" placeholder="Country">
-
-        <button class="btn btn-custom">Predict Price</button>
-
-    </form>
-
-    <div class="result">
-        Price: {{ prediction_text }}
+        <h2>👩‍💻 Amgoth Laxman </h2>
+        <p><b>Data Analyst & ML Engineer</b></p>
+        <p>Email: amgothlaxman367@gmail.com</p>
     </div>
 
-    <p>Project By <b>Laxman</b></p>
-    <div>Data Scientist & ML Engineer</div>
-        <div>📧 amgothlaxman@gmail.com</div>
-        <div>📱 9182978008</div>
+    <!-- RIGHT -->
+    <div class="card right">
 
+        <h2>🏠 Enter House Details</h2>
+
+        <form action="/predict" method="post">
+
+            <div class="form-grid">
+                <input type="number" step="any" name="bedrooms" placeholder="Bedrooms" required>
+                <input type="number" step="any" name="bathrooms" placeholder="Bathrooms" required>
+                <input type="number" step="any" name="sqft_living" placeholder="Sqft Living" required>
+                <input type="number" step="any" name="sqft_lot" placeholder="Sqft Lot" required>
+                <input type="number" step="any" name="floors" placeholder="Floors" required>
+                <input type="number" name="waterfront" placeholder="Waterfront (0/1)" required>
+                <input type="number" name="view" placeholder="View" required>
+                <input type="number" name="condition" placeholder="Condition" required>
+                <input type="number" name="sqft_above" placeholder="Sqft Above" required>
+                <input type="number" name="sqft_basement" placeholder="Sqft Basement" required>
+                <input type="number" name="yr_built" placeholder="Year Built" required>
+                <input type="number" name="yr_renovated" placeholder="Year Renovated" required>
+                <input type="number" name="city" placeholder="City (0-43)" required>
+                <input type="number" name="country" placeholder="Country (0)" required>
+            </div>
+
+            <button class="btn">🚀 Predict Price</button>
+
+        </form>
+
+        {% if prediction_text %}
+        <div class="prediction">
+            {{ prediction_text }}
+        </div>
+        {% endif %}
+
+    </div>
 
 </div>
+```
 
 </body>
 </html>
